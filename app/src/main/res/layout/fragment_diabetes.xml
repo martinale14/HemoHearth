@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="297dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    tools:context=".Diabetes_Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="58dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:gravity="center_horizontal"
+        android:text="Registro"
+        android:textAlignment="center"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Nombre"
+        android:textColor="#80909F"
+        android:textSize="21sp" />
+
+    <EditText
+        android:id="@+id/editTextTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_inputbg"
+        android:ems="10"
+        android:fontFamily="@font/montserrat_medium"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#A8B3BD"
+        android:textColorHighlight="#A8B3BD"
+        android:textColorHint="#80909F"
+        android:textColorLink="#80909F"
+        android:textSize="21sp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Apellido"
+        android:textColor="#80909F"
+        android:textSize="21sp" />
+
+    <EditText
+        android:id="@+id/editTextTextLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_inputbg"
+        android:ems="10"
+        android:fontFamily="@font/montserrat_medium"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#A8B3BD"
+        android:textColorHighlight="#A8B3BD"
+        android:textColorHint="#80909F"
+        android:textColorLink="#80909F"
+        android:textSize="21sp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="Cédula"
+        android:textColor="#80909F"
+        android:textSize="21sp" />
+
+    <EditText
+        android:id="@+id/editTextTextId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_inputbg"
+        android:ems="10"
+        android:fontFamily="@font/montserrat_medium"
+        android:inputType="number"
+        android:minHeight="48dp"
+        android:textColor="#A8B3BD"
+        android:textColorHighlight="#A8B3BD"
+        android:textColorHint="#80909F"
+        android:textColorLink="#80909F"
+        android:textSize="21sp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="EPS"
+        android:textColor="#80909F"
+        android:textSize="21sp" />
+
+    <Spinner
+        android:id="@+id/spinnerEPS"
+        android:layout_width="297dp"
+        android:layout_height="wrap_content"
+        android:clipChildren="true"
+        android:minHeight="48dp"
+        android:spinnerMode="dropdown"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:background="@drawable/ic_spinnerbg"
+        />
+
+    <ImageView
+        android:id="@+id/btnContinuar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="58dp"
+        android:src="@drawable/ic_btncontinuardisable" />
+
+</LinearLayout>
