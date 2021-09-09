@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#7BC6E5"
+    android:clickable="true"
     tools:context=".Home">
 
     <LinearLayout
-        android:layout_width="255dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,85 +23,21 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_logo" />
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="52dp"
-            android:gravity="center">
+            android:layout_marginTop="57dp"
+            android:onClick="openDiabetes"
+            android:src="@drawable/ic_btndiabetes"
+            tools:ignore="SpeakableTextPresentCheck" />
 
-            <View
-                android:id="@+id/rectangle_4"
-                android:layout_width="255dp"
-                android:layout_height="55dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:background="@drawable/rectangle_4" />
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/montserrat_semibold"
-                android:text="Diabetes"
-                android:textSize="24sp" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="false"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="false"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                app:srcCompat="@drawable/ic_continuearrow" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="52dp"
-            android:gravity="center">
-
-            <View
-                android:id="@+id/rectangle_5"
-                android:layout_width="255dp"
-                android:layout_height="55dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:background="@drawable/rectangle_4" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/montserrat_semibold"
-                android:text="Anemia"
-                android:textSize="24sp" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="false"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="false"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                app:srcCompat="@drawable/ic_continuearrow" />
-
-        </RelativeLayout>
+            android:layout_marginTop="57dp"
+            android:src="@drawable/ic_btnanemia" />
 
     </LinearLayout>
 

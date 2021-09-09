@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="opciones">
+        <item></item>
+        <item>S.O.S</item>
+        <item>Sanitas</item>
+        <item>Coomeva</item>
+        <item>Cosmitet</item>
+        <item>Nueva Eps</item>
+    </string-array>
+</resources>

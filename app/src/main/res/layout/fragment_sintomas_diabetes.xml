@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="340dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    tools:context=".Diabetes_Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="58dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:gravity="center_horizontal"
+        android:text="Síntomas"
+        android:textAlignment="center"
+        android:textSize="30sp" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@drawable/checkbox_bg"
+        android:checked="false"
+        android:clickable="true"
+        android:fontFamily="@font/montserrat_medium"
+        android:paddingLeft="12dp"
+        android:text="Cuadros neurovegetativos"
+        android:textAlignment="textStart"
+        android:textColor="#80909F"
+        android:textSize="21sp"
+        android:theme="@style/MyCheckBox"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:button="@drawable/checkbox_bg"
+        android:checked="false"
+        android:fontFamily="@font/montserrat_medium"
+        android:paddingLeft="12dp"
+        android:text="Trastornos de conciencia"
+        android:textAlignment="textStart"
+        android:textColor="#80909F"
+        android:textSize="21sp"
+        android:theme="@style/MyCheckBox"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:button="@drawable/checkbox_bg"
+        android:checked="false"
+        android:fontFamily="@font/montserrat_medium"
+        android:paddingLeft="12dp"
+        android:text="Signos de deshidratación"
+        android:textAlignment="textStart"
+        android:textColor="#80909F"
+        android:textSize="21sp"
+        android:theme="@style/MyCheckBox"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:button="@drawable/checkbox_bg"
+        android:checked="false"
+        android:fontFamily="@font/montserrat_medium"
+        android:paddingLeft="12dp"
+        android:text="Patologías agudas cardiovascular neurológica"
+        android:textAlignment="textStart"
+        android:textColor="#80909F"
+        android:textSize="21sp"
+        android:theme="@style/MyCheckBox" />
+
+    <CheckBox
+        android:id="@+id/checkBox5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:button="@drawable/checkbox_bg"
+        android:checked="false"
+        android:fontFamily="@font/montserrat_medium"
+        android:paddingLeft="12dp"
+        android:text="Sepsis"
+        android:textAlignment="textStart"
+        android:textColor="#80909F"
+        android:textSize="21sp"
+        android:theme="@style/MyCheckBox"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/btnContinuarSin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="58dp"
+        android:src="@drawable/ic_btncontinuaractive" />
+
+</LinearLayout>
