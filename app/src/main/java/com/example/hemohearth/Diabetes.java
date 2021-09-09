@@ -26,9 +26,10 @@ public class Diabetes extends AppCompatActivity {
                 transaction.replace(R.id.fragmentContainerView2, Diabetes_Fragment.class, null);
                 transaction.commit();
 
-            }if(extras.getString("fragment").equalsIgnoreCase("diabetes")){
-                
+            }if(extras.getString("fragment").equalsIgnoreCase("anemia")){
 
+                transaction.replace(R.id.fragmentContainerView2, Anemia_Fragment.class, null);
+                transaction.commit();
 
             }
 

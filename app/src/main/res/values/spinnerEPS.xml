@@ -8,4 +8,15 @@
         <item>Cosmitet</item>
         <item>Nueva Eps</item>
     </string-array>
+    <string-array name="sexo">
+        <item></item>
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Otro</item>
+    </string-array>
+    <string-array name="edad">
+        <item></item>
+        <item>Meses</item>
+        <item>Años</item>
+    </string-array>
 </resources>
