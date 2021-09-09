@@ -18,4 +18,10 @@ public class Home extends AppCompatActivity {
         intent.putExtra("fragment", "diabetes");
         startActivity(intent);
     }
+
+    public void openAnemia(View view){
+        Intent intent = new Intent(this, Diabetes.class);
+        intent.putExtra("fragment", "anemia");
+        startActivity(intent);
+    }
 }
