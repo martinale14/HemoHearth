@@ -1,19 +1,31 @@
 package com.example.hemohearth;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.text.LineBreaker;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Diabetes_Alert_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Diabetes_Alert_Fragment extends Fragment {
+public class Diabetes_Alert_Fragment extends DialogFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +70,63 @@ public class Diabetes_Alert_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_diabetes__alert_, container, false);
+        View view = inflater.inflate(R.layout.fragment_alert_diabetes, container, false);
+        // Set transparent background and no title
+
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        }
+
+        Bundle datosR = getArguments();
+
+        int level = datosR.getInt("level");
+        String title = "Diabetes identificada";
+        String msg = "";
+
+        switch (level){
+
+            case 0:
+                title = "El paciente no padece de diabetes";
+                break;
+            case 1:
+                msg = "Indicar glucemia en ayunas y TGP en pacientes sin diagnóstico. - Si " +
+                        "deshidratación, rehidratación oral o EV según las demandas. - " +
+                        "Reevaluar conducta terapéutica en diabéticos y cumplimiento de los " +
+                        "pilares. - Reevaluar dosis de hipoglucemiantes.";
+                break;
+            case 2:
+                msg = "Coordinar traslado y comenzar tratamiento. - Hidratación con Solución " +
+                        "salina 40 ml/Kg en las primeras 4 horas. 1-2 L la primera hora. - " +
+                        "Administrar potasio al restituirse la diuresis o signos de " +
+                        "hipopotasemia (depresión del ST, Onda U ≤ 1mv, ondas U≤ T). - Evitar " +
+                        "insulina hasta desaparecer signos de hipopotasemia. - Administrar " +
+                        "insulina simple 0,1 U/kg EV después de hidratar";
+                break;
+            case 3:
+                msg = "Coordinar traslado y comenzar tratamiento. - Hidratación con Solución " +
+                        "Salina 10-15 ml/Kg/h hasta conseguir estabilidad hemodinámica. - " +
+                        "Administrar potasio al restituirse la diuresis o signos de " +
+                        "hipopotasemia (depresión del ST, Onda U ≤ 1mv, ondas U≤ T).";
+                break;
+
+        }
+
+        TextView titleTv = (TextView)view.findViewById(R.id.textViewTittle);
+        TextView messageTv = (TextView)view.findViewById(R.id.textViewMessage);
+        TextView aceptarBtn = (TextView)view.findViewById(R.id.btnAceptar);
+        titleTv.setText(title);
+        messageTv.setText(msg);
+
+        aceptarBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+
+        return view;
     }
+
 }
