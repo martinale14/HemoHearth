@@ -26,6 +26,7 @@ public class Glucemia_Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ImageView btnEnviar;
 
     public Glucemia_Fragment() {
         // Required empty public constructor
@@ -67,6 +68,9 @@ public class Glucemia_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_glucemia, container, false);
 
         ImageView goBack = (ImageView)getActivity().findViewById(R.id.imageViewGoBack);
+        btnEnviar = (ImageView)getActivity().findViewById(R.id.btnEnviar);
+
+
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +83,8 @@ public class Glucemia_Fragment extends Fragment {
                 transaction.commit();
             }
         });
+
+
 
         return view;
     }
