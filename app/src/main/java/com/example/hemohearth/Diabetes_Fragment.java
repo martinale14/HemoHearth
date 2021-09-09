@@ -89,8 +89,7 @@ public class  Diabetes_Fragment extends Fragment {
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Home.class);
-                startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -167,7 +166,12 @@ public class  Diabetes_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Bundle datos = new Bundle();
+                Bundle datos;
+                if(getArguments() == null){
+                    datos = new Bundle();
+                }else{
+                    datos = getArguments();
+                }
 
                 datos.putString("name", etName.getText().toString());
                 datos.putString("lastName", etLastName.getText().toString());
