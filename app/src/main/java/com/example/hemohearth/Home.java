@@ -15,6 +15,7 @@ public class Home extends AppCompatActivity {
 
     public void openDiabetes(View view){
         Intent intent = new Intent(this, Diabetes.class);
+        intent.putExtra("fragment", "diabetes");
         startActivity(intent);
     }
 }
