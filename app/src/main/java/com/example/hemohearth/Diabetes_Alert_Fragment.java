@@ -122,7 +122,7 @@ public class Diabetes_Alert_Fragment extends DialogFragment {
 
             @Override
             public void onClick(View view) {
-                dismiss();
+                getActivity().finish();
             }
         });
 
