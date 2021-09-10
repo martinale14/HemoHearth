@@ -1,24 +1,22 @@
 package com.example.hemohearth;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteConstraintException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.text.LineBreaker;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -118,13 +116,44 @@ public class Diabetes_Alert_Fragment extends DialogFragment {
         titleTv.setText(title);
         messageTv.setText(msg);
 
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(getActivity(), "pacientes", null, 1);
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        ContentValues registro = new ContentValues();
+
+        registro.put("cedula", datosR.getString("id"));
+        registro.put("nombre", datosR.getString("name"));
+        registro.put("apellido", datosR.getString("lastName"));
+        registro.put("eps", datosR.getString("eps"));
+        registro.put("tieneDiabetes", (datosR.getInt("level") == 0 ? 0 : 1));
+
+        String toastMsg = "";
+
+        try {
+            bd.insertOrThrow("pacientesDiabetes", null, registro);
+            toastMsg = "Paciente Guardado Correctamente";
+        }catch (Exception exception){
+            System.out.println("excepcion sql");
+            bd.update("pacientesDiabetes", registro, "cedula=" + datosR.getString("id"), null);
+            toastMsg = "Paciente Actualizado con Exito";
+        }
+
+        bd.close();
+
+        Toast toast = Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_SHORT);
+        toast.show();
+
+
         aceptarBtn.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
                 getActivity().finish();
+
             }
         });
+
+
+
 
         return view;
     }

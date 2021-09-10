@@ -102,7 +102,13 @@ public class Glucemia_Fragment extends Fragment {
                     level = 3;
                 }
 
-                Bundle datos = new Bundle();
+                Bundle datos;
+
+                if(getArguments() != null){
+                    datos = getArguments();
+                }else {
+                    datos = new Bundle();
+                }
 
                 datos.putInt("level", level);
                 datos.putDouble("glucemia", glucemia);
