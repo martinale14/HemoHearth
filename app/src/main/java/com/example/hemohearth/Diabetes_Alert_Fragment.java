@@ -18,6 +18,11 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Diabetes_Alert_Fragment#newInstance} factory method to
@@ -107,6 +112,12 @@ public class Diabetes_Alert_Fragment extends DialogFragment {
                         "Administrar potasio al restituirse la diuresis o signos de " +
                         "hipopotasemia (depresión del ST, Onda U ≤ 1mv, ondas U≤ T).";
                 break;
+            case 4:
+                title = "El paciente tiene anemia";
+                break;
+            case 5:
+                title = "El paciente no tiene anemia";
+                break;
 
         }
 
@@ -120,28 +131,73 @@ public class Diabetes_Alert_Fragment extends DialogFragment {
         SQLiteDatabase bd = admin.getWritableDatabase();
         ContentValues registro = new ContentValues();
 
-        registro.put("cedula", datosR.getString("id"));
         registro.put("nombre", datosR.getString("name"));
         registro.put("apellido", datosR.getString("lastName"));
-        registro.put("eps", datosR.getString("eps"));
-        registro.put("tieneDiabetes", (datosR.getInt("level") == 0 ? 0 : 1));
 
-        String toastMsg = "";
+        if(level >= 4){
 
-        try {
-            bd.insertOrThrow("pacientesDiabetes", null, registro);
-            toastMsg = "Paciente Guardado Correctamente";
-        }catch (Exception exception){
-            System.out.println("excepcion sql");
-            bd.update("pacientesDiabetes", registro, "cedula=" + datosR.getString("id"), null);
-            toastMsg = "Paciente Actualizado con Exito";
+            registro.put("correo", datosR.getString("email"));
+            registro.put("sexo", datosR.getInt("sexoId") == 1 ? "Hombre" : "Mujer");
+            registro.put("edad", datosR.getDouble("edad") + " " + (datosR.getInt("edadId") == 1 ? "meses" : "años"));
+            registro.put("hemoglobina", datosR.getDouble("hemo"));
+            registro.put("tieneAnemia", level == 4 ? 1 : 0);
+
+            String toastMsg = "";
+
+            try {
+                System.out.println("LLegue aqui");
+                bd.insertOrThrow("pacientesAnemia", null, registro);
+                toastMsg = "Paciente Guardado Correctamente";
+
+            }catch (Exception exception){
+                System.out.println(exception);
+                bd.update("pacientesAnemia", registro, "correo='" + datosR.getString("email") + "'", null);
+                toastMsg = "Paciente Actualizado con Exito";
+            }
+
+            Cursor row = bd.rawQuery("SELECT * FROM pacientesAnemia WHERE correo = '" + datosR.getString("email") + "'", null);
+
+            if(row.moveToFirst()) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                Map<String, Object> fireData = new HashMap<>();
+                fireData.put("correo", row.getString(0));
+                fireData.put("nombre", row.getString(1));
+                fireData.put("apellido", row.getString(2));
+                fireData.put("sexo", row.getString(3));
+                fireData.put("edad", row.getString(4));
+                fireData.put("hemoglobina", row.getDouble(5));
+                fireData.put("tieneAnemia", row.getInt(6)==1 ? "si" : "no");
+
+                db.collection("pacientes").document(row.getString(0)).set(fireData);
+
+                toastMsg = "Paciente Guardado Correctamente en la nube";
+            }
+
+            Toast toast = Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_SHORT);
+            toast.show();
+
+        }else{
+
+            registro.put("cedula", datosR.getString("id"));
+            registro.put("eps", datosR.getString("eps"));
+            registro.put("tieneDiabetes", (datosR.getInt("level") == 0 ? 0 : 1));
+
+            String toastMsg = "";
+
+            try {
+                bd.insertOrThrow("pacientesDiabetes", null, registro);
+                toastMsg = "Paciente Guardado Correctamente";
+            }catch (SQLiteConstraintException exception){
+                bd.update("pacientesDiabetes", registro, "cedula=" + datosR.getString("id"), null);
+                toastMsg = "Paciente Actualizado con Exito";
+            }
+
+            Toast toast = Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_SHORT);
+            toast.show();
         }
 
         bd.close();
-
-        Toast toast = Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_SHORT);
-        toast.show();
-
 
         aceptarBtn.setOnClickListener(new View.OnClickListener(){
 
