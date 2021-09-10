@@ -79,13 +79,6 @@ public class Glucemia_Fragment extends Fragment {
         this.glucemiaTb = (EditText)view.findViewById(R.id.editTextTextGlucemia);
         this.btnEnviar = (ImageView)view.findViewById(R.id.btnEnviar);
 
-        if(datosR != null){
-            if(datosR.getString("glucemia") != null){
-                glucemiaTb.setText(datosR.getString("glucemia"));
-                this.checkInput();
-            }
-        }
-
         this.sendDisabled = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +114,13 @@ public class Glucemia_Fragment extends Fragment {
         };
 
         this.btnEnviar.setOnClickListener(this.sendDisabled);
+
+        if(datosR != null){
+            if(datosR.getString("glucemia") != null){
+                glucemiaTb.setText(datosR.getString("glucemia"));
+                this.checkInput();
+            }
+        }
 
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
