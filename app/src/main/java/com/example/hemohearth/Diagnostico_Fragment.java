@@ -3,6 +3,7 @@ package com.example.hemohearth;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -202,28 +203,59 @@ public class Diagnostico_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                double hemo = Double.parseDouble(etHemo.getText().toString());
+                double edad;
+                int sexoId = spinnerSexo.getSelectedItemPosition();
+                int edadId = spinnerEdad.getSelectedItemPosition();
+                int level;
+                String id = Integer.toString(edadId);
                 Bundle datos = new Bundle();
 
-                datos.putString("edad", etEdad.getText().toString());
-                datos.putString("hemo", etHemo.getText().toString());
-                datos.putInt("sexoId", spinnerSexo.getSelectedItemPosition());
-                datos.putInt("edadId", spinnerEdad.getSelectedItemPosition());
+                if(edadId == 1){
+                    if(Double.parseDouble(etEdad.getText().toString()) > 12){
+                        edad = Double.parseDouble(etEdad.getText().toString()) / 12;
+                        edadId = 2;
+                    }else{
+                        edad = Double.parseDouble(etEdad.getText().toString());
+                    }
 
-                Bundle datosR = getArguments();
-
-                if(datosR != null){
-                    if(datosR.getBooleanArray("checked") != null){
-                        datos.putBooleanArray("checked", datosR.getBooleanArray("checked"));
+                }else{
+                    edad = Double.parseDouble(etEdad.getText().toString());
+                    if(edad == 1) {
+                        edadId = 1;
+                        edad = 12;
                     }
                 }
 
-                Fragment sintomas = new SintomasDiabetes_Fragment();
-                sintomas.setArguments(datos);
+                if(edadId == 1 && ((edad <= 1 && (hemo >= 13 && hemo <= 26)) || ((edad > 1 && edad <= 6) && (hemo >= 10 && hemo <= 18)) ||
+                        ((edad > 6 && edad <= 12) && (hemo >= 11 && hemo <= 15)) )){
+                    level = 5;
+                }else if(edadId == 2 && ( ((edad > 1 && edad <= 5) && (hemo >= 11.5 && hemo <= 15.0)) || ((edad > 5 && edad <= 10) && (hemo >= 12.6 && hemo <= 15.5))
+                        || ((edad > 10) && ((sexoId == 1 && hemo >= 14 && hemo <= 18) || (sexoId == 2 && hemo >= 12 && hemo <= 16))) )){
+                    level = 5;
+                }else{
+                    level = 4;
+                }
 
-                FragmentManager manager = getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragmentContainerView2, sintomas, null);
-                transaction.commit();
+                datos.putDouble("edad", edad);
+                datos.putDouble("hemo", hemo);
+                datos.putInt("sexoId", spinnerSexo.getSelectedItemPosition());
+                datos.putInt("edadId", spinnerEdad.getSelectedItemPosition());
+
+                //DialogFragment dialog = new Diabetes_Alert_Fragment();
+                //dialog.setArguments(datos);
+                //dialog.show(getActivity().getSupportFragmentManager(), "dialog");
+
+                Toast toast;
+
+                if(level == 5){
+                    toast = Toast.makeText(getActivity(), "No tiene anemia", Toast.LENGTH_SHORT);
+                }else if(level == 4){
+                    toast = Toast.makeText(getActivity(), "Hijueputa se va a morir", Toast.LENGTH_SHORT);
+                }else{
+                    toast = Toast.makeText(getActivity(), "Algo falló por marik", Toast.LENGTH_SHORT);
+                }
+                toast.show();
             }
         };
 

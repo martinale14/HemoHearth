@@ -12,7 +12,6 @@
         <item></item>
         <item>Masculino</item>
         <item>Femenino</item>
-        <item>Otro</item>
     </string-array>
     <string-array name="edad">
         <item></item>
