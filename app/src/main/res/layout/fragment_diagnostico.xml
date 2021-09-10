@@ -119,7 +119,7 @@
         android:layout_marginTop="25dp"
         android:layout_weight="1"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Nivel de hemoglobina"
+        android:text="Nivel de hemoglobina (%)"
         android:textColor="#80909F"
         android:textSize="21sp" />
 

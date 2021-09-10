@@ -209,7 +209,12 @@ public class Diagnostico_Fragment extends Fragment {
                 int edadId = spinnerEdad.getSelectedItemPosition();
                 int level;
                 String id = Integer.toString(edadId);
-                Bundle datos = new Bundle();
+                Bundle datos;
+                if (getArguments() != null){
+                    datos = getArguments();
+                }else{
+                    datos = new Bundle();
+                }
 
                 if(edadId == 1){
                     if(Double.parseDouble(etEdad.getText().toString()) > 12){
@@ -237,25 +242,17 @@ public class Diagnostico_Fragment extends Fragment {
                     level = 4;
                 }
 
-                datos.putDouble("edad", edad);
+
+                datos.putDouble("edad", Double.parseDouble(etEdad.getText().toString()));
                 datos.putDouble("hemo", hemo);
                 datos.putInt("sexoId", spinnerSexo.getSelectedItemPosition());
                 datos.putInt("edadId", spinnerEdad.getSelectedItemPosition());
+                datos.putInt("level", level);
 
-                //DialogFragment dialog = new Diabetes_Alert_Fragment();
-                //dialog.setArguments(datos);
-                //dialog.show(getActivity().getSupportFragmentManager(), "dialog");
+                DialogFragment dialog = new Diabetes_Alert_Fragment();
+                dialog.setArguments(datos);
+                dialog.show(getActivity().getSupportFragmentManager(), "dialog");
 
-                Toast toast;
-
-                if(level == 5){
-                    toast = Toast.makeText(getActivity(), "No tiene anemia", Toast.LENGTH_SHORT);
-                }else if(level == 4){
-                    toast = Toast.makeText(getActivity(), "Hijueputa se va a morir", Toast.LENGTH_SHORT);
-                }else{
-                    toast = Toast.makeText(getActivity(), "Algo falló por marik", Toast.LENGTH_SHORT);
-                }
-                toast.show();
             }
         };
 
