@@ -21,10 +21,10 @@ import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Diabetes_Fragment#newInstance} factory method to
+ * Use the {@link Diagnostico_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class  Diabetes_Fragment extends Fragment {
+public class Diagnostico_Fragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,15 +35,15 @@ public class  Diabetes_Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private boolean canGo;
-    Spinner spinner;
+    Spinner spinnerSexo;
+    Spinner spinnerEdad;
     private EditText[] textInputs;
-    private EditText etName;
-    private EditText etLastName;
-    private EditText etID;
-    private ImageView btnContinuar;
+    private EditText etEdad;
+    private EditText etHemo;
+    private ImageView btnEnviar;
     private View.OnClickListener disabled;
 
-    public Diabetes_Fragment() {
+    public Diagnostico_Fragment() {
         // Required empty public constructor
     }
 
@@ -53,11 +53,11 @@ public class  Diabetes_Fragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment diabetesFragment.
+     * @return A new instance of fragment Diagnostico_Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Diabetes_Fragment newInstance(String param1, String param2) {
-        Diabetes_Fragment fragment = new Diabetes_Fragment();
+    public static Diagnostico_Fragment newInstance(String param1, String param2) {
+        Diagnostico_Fragment fragment = new Diagnostico_Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,19 +79,17 @@ public class  Diabetes_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_diabetes, container, false);
-        this.spinner = (Spinner) view.findViewById(R.id.spinnerEPS);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.opciones, R.layout.spinner_item);
-        adapter.setDropDownViewResource(R.layout.spinner_item);
-        this.spinner.setAdapter(adapter);
+        View view = inflater.inflate(R.layout.fragment_diagnostico, container, false);
 
-        ImageView goBack = (ImageView)getActivity().findViewById(R.id.imageViewGoBack);
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
+        this.spinnerSexo = (Spinner) view.findViewById(R.id.spinnerSexo);
+        ArrayAdapter<CharSequence> sexoAdapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.sexo, R.layout.spinner_item);
+        sexoAdapter.setDropDownViewResource(R.layout.spinner_item);
+        this.spinnerSexo.setAdapter(sexoAdapter);
+        
+        this.spinnerEdad = (Spinner) view.findViewById(R.id.spinnerEdad);
+        ArrayAdapter<CharSequence> edadAdapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.edad, R.layout.spinner_item);
+        edadAdapter.setDropDownViewResource(R.layout.spinner_item);
+        this.spinnerEdad.setAdapter(edadAdapter);
 
         this.disabled = new View.OnClickListener() {
             @Override
@@ -100,26 +98,24 @@ public class  Diabetes_Fragment extends Fragment {
             }
         };
 
-        this.btnContinuar = (ImageView)view.findViewById(R.id.btnContinuar);
-        this.btnContinuar.setOnClickListener(disabled);
+        this.btnEnviar = (ImageView)view.findViewById(R.id.btnEnviar);
+        this.btnEnviar.setOnClickListener(disabled);
 
-        this.etName = (EditText)view.findViewById(R.id.editTextTextName);
-        this.etLastName = (EditText)view.findViewById(R.id.editTextTextLastName);
-        this.etID = (EditText)view.findViewById(R.id.editTextTextId);
+        this.etEdad = (EditText)view.findViewById(R.id.editTextTextEdad);
+        this.etHemo = (EditText)view.findViewById(R.id.editTextTextHemo);
 
         Bundle datosR = getArguments();
 
-        this.textInputs = new EditText[3];
+        this.textInputs = new EditText[2];
 
-        this.textInputs[0] = etName;
-        this.textInputs[1] = etLastName;
-        this.textInputs[2] = etID;
+        this.textInputs[0] = etEdad;
+        this.textInputs[1] = etHemo;
 
         if(datosR != null){
-            this.etName.setText(datosR.getString("name"));
-            this.etLastName.setText(datosR.getString("lastName"));
-            this.etID.setText(datosR.getString("id"));
-            this.spinner.setSelection(datosR.getInt("epsId"));
+            this.etEdad.setText(datosR.getString("edad"));
+            this.etHemo.setText(datosR.getString("hemo"));
+            this.spinnerSexo.setSelection(datosR.getInt("sexoId"));
+            this.spinnerEdad.setSelection(datosR.getInt("edadId"));
 
             this.checkInputs();
         }
@@ -144,7 +140,7 @@ public class  Diabetes_Fragment extends Fragment {
 
         }
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerSexo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -157,6 +153,46 @@ public class  Diabetes_Fragment extends Fragment {
             }
         });
 
+        spinnerEdad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                checkInputs();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        ImageView goBack = (ImageView)getActivity().findViewById(R.id.imageViewGoBack);
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Bundle datos;
+
+                if(getArguments() != null){
+                    datos = getArguments();
+                }else{
+                    datos = new Bundle();
+                }
+
+                datos.putString("edad", etEdad.getText().toString());
+                datos.putString("hemo", etHemo.getText().toString());
+                datos.putInt("sexoId", spinnerSexo.getSelectedItemPosition());
+                datos.putInt("edadId", spinnerEdad.getSelectedItemPosition());
+
+                Fragment anemia = new Anemia_Fragment();
+                anemia.setArguments(datosR);
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.fragmentContainerView2, anemia, null);
+                transaction.commit();
+            }
+        });
+
         return view;
     }
 
@@ -166,18 +202,12 @@ public class  Diabetes_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Bundle datos;
-                if(getArguments() == null){
-                    datos = new Bundle();
-                }else{
-                    datos = getArguments();
-                }
+                Bundle datos = new Bundle();
 
-                datos.putString("name", etName.getText().toString());
-                datos.putString("lastName", etLastName.getText().toString());
-                datos.putString("id", etID.getText().toString());
-                datos.putString("eps", spinner.getSelectedItem().toString());
-                datos.putInt("epsId", spinner.getSelectedItemPosition());
+                datos.putString("edad", etEdad.getText().toString());
+                datos.putString("hemo", etHemo.getText().toString());
+                datos.putInt("sexoId", spinnerSexo.getSelectedItemPosition());
+                datos.putInt("edadId", spinnerEdad.getSelectedItemPosition());
 
                 Bundle datosR = getArguments();
 
@@ -194,12 +224,15 @@ public class  Diabetes_Fragment extends Fragment {
                 FragmentTransaction transaction = manager.beginTransaction();
                 transaction.replace(R.id.fragmentContainerView2, sintomas, null);
                 transaction.commit();
-                    }
-                };
+            }
+        };
 
         this.canGo = true;
 
-        if(this.spinner.getSelectedItem().toString().equalsIgnoreCase("")){
+        if(this.spinnerSexo.getSelectedItem().toString().equalsIgnoreCase("")){
+            this.canGo = false;
+        }
+        if(this.spinnerEdad.getSelectedItem().toString().equalsIgnoreCase("")){
             this.canGo = false;
         }
         for(int j = 0; j < this.textInputs.length; j++){
@@ -209,11 +242,11 @@ public class  Diabetes_Fragment extends Fragment {
         }
 
         if(this.canGo){
-            this.btnContinuar.setImageResource(R.drawable.ic_btncontinuaractive);
-            this.btnContinuar.setOnClickListener(active);
+            this.btnEnviar.setImageResource(R.drawable.ic_btn_send_active);
+            this.btnEnviar.setOnClickListener(active);
         }else{
-            this.btnContinuar.setImageResource(R.drawable.ic_btncontinuardisable);
-            this.btnContinuar.setOnClickListener(this.disabled);
+            this.btnEnviar.setImageResource(R.drawable.ic_btn_send_disable);
+            this.btnEnviar.setOnClickListener(this.disabled);
         }
     }
 

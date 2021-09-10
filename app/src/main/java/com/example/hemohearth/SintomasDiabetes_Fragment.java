@@ -2,6 +2,7 @@ package com.example.hemohearth;
 
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -92,20 +93,34 @@ public class SintomasDiabetes_Fragment extends Fragment {
             public void onClick(View view) {
 
                 boolean[] checked = new boolean[5];
+                boolean skip = true;
 
                 for(int i = 0; i < checkBoxes.length; i++){
                     checked[i] = checkBoxes[i].isChecked();
+                    if(checked[i] == true){
+                    skip = false;
+                    }
                 }
 
+                if(skip){
 
-                datosR.putBooleanArray("checked" ,checked);
+                    datosR.putInt("level", 0);
+                    DialogFragment dialog = new Diabetes_Alert_Fragment();
+                    dialog.setArguments(datosR);
+                    dialog.show(getActivity().getSupportFragmentManager(), "dialog");
 
-                Fragment glucemia = new Glucemia_Fragment();
-                glucemia.setArguments(datosR);
-                FragmentManager manager = getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragmentContainerView2, glucemia, null);
-                transaction.commit();
+
+                }else{
+                    datosR.putBooleanArray("checked" ,checked);
+
+                    Fragment glucemia = new Glucemia_Fragment();
+                    glucemia.setArguments(datosR);
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.fragmentContainerView2, glucemia, null);
+                    transaction.commit();
+                }
+
             }
         });
 

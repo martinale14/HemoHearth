@@ -21,10 +21,10 @@ import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Diabetes_Fragment#newInstance} factory method to
+ * Use the {@link Anemia_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class  Diabetes_Fragment extends Fragment {
+public class Anemia_Fragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,15 +35,14 @@ public class  Diabetes_Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private boolean canGo;
-    Spinner spinner;
     private EditText[] textInputs;
     private EditText etName;
     private EditText etLastName;
-    private EditText etID;
+    private EditText etEmail;
     private ImageView btnContinuar;
     private View.OnClickListener disabled;
 
-    public Diabetes_Fragment() {
+    public Anemia_Fragment() {
         // Required empty public constructor
     }
 
@@ -53,11 +52,11 @@ public class  Diabetes_Fragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment diabetesFragment.
+     * @return A new instance of fragment Anemia_Fragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Diabetes_Fragment newInstance(String param1, String param2) {
-        Diabetes_Fragment fragment = new Diabetes_Fragment();
+    public static Anemia_Fragment newInstance(String param1, String param2) {
+        Anemia_Fragment fragment = new Anemia_Fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,18 +71,13 @@ public class  Diabetes_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_diabetes, container, false);
-        this.spinner = (Spinner) view.findViewById(R.id.spinnerEPS);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.opciones, R.layout.spinner_item);
-        adapter.setDropDownViewResource(R.layout.spinner_item);
-        this.spinner.setAdapter(adapter);
+        View view = inflater.inflate(R.layout.fragment_anemia_, container, false);
 
         ImageView goBack = (ImageView)getActivity().findViewById(R.id.imageViewGoBack);
         goBack.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +99,7 @@ public class  Diabetes_Fragment extends Fragment {
 
         this.etName = (EditText)view.findViewById(R.id.editTextTextName);
         this.etLastName = (EditText)view.findViewById(R.id.editTextTextLastName);
-        this.etID = (EditText)view.findViewById(R.id.editTextTextId);
+        this.etEmail = (EditText)view.findViewById(R.id.editTextTextEmail);
 
         Bundle datosR = getArguments();
 
@@ -113,13 +107,12 @@ public class  Diabetes_Fragment extends Fragment {
 
         this.textInputs[0] = etName;
         this.textInputs[1] = etLastName;
-        this.textInputs[2] = etID;
+        this.textInputs[2] = etEmail;
 
         if(datosR != null){
             this.etName.setText(datosR.getString("name"));
             this.etLastName.setText(datosR.getString("lastName"));
-            this.etID.setText(datosR.getString("id"));
-            this.spinner.setSelection(datosR.getInt("epsId"));
+            this.etEmail.setText(datosR.getString("email"));
 
             this.checkInputs();
         }
@@ -144,19 +137,6 @@ public class  Diabetes_Fragment extends Fragment {
 
         }
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                checkInputs();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         return view;
     }
 
@@ -167,41 +147,29 @@ public class  Diabetes_Fragment extends Fragment {
             public void onClick(View view) {
 
                 Bundle datos;
-                if(getArguments() == null){
-                    datos = new Bundle();
-                }else{
+
+                if(getArguments() != null){
                     datos = getArguments();
+                }else{
+                    datos = new Bundle();
                 }
 
                 datos.putString("name", etName.getText().toString());
                 datos.putString("lastName", etLastName.getText().toString());
-                datos.putString("id", etID.getText().toString());
-                datos.putString("eps", spinner.getSelectedItem().toString());
-                datos.putInt("epsId", spinner.getSelectedItemPosition());
+                datos.putString("email", etEmail.getText().toString());
 
-                Bundle datosR = getArguments();
-
-                if(datosR != null){
-                    if(datosR.getBooleanArray("checked") != null){
-                        datos.putBooleanArray("checked", datosR.getBooleanArray("checked"));
-                    }
-                }
-
-                Fragment sintomas = new SintomasDiabetes_Fragment();
-                sintomas.setArguments(datos);
+                Fragment diagnostico = new Diagnostico_Fragment();
+                diagnostico.setArguments(datos);
 
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragmentContainerView2, sintomas, null);
+                transaction.replace(R.id.fragmentContainerView2, diagnostico, null);
                 transaction.commit();
-                    }
-                };
+            }
+        };
 
         this.canGo = true;
 
-        if(this.spinner.getSelectedItem().toString().equalsIgnoreCase("")){
-            this.canGo = false;
-        }
         for(int j = 0; j < this.textInputs.length; j++){
             if(this.textInputs[j].getText().length() <= 0){
                 this.canGo = false;
