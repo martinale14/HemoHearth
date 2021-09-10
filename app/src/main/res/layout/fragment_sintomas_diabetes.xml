@@ -21,6 +21,7 @@
         android:gravity="center_horizontal"
         android:text="Síntomas"
         android:textAlignment="center"
+        android:textColor="#80909F"
         android:textSize="30sp" />
 
     <CheckBox
