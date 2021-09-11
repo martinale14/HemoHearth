@@ -38,7 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="57dp"
             android:onClick="openAnemia"
-            android:src="@drawable/ic_btnanemia" />
+            android:src="@drawable/ic_btnanemia"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
